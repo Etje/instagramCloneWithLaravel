@@ -7,17 +7,18 @@
         <img src="/svg/freeRandomLogo.svg" class="rounded-circle w-50 d-block m-5">
     </div>
     <div class="col-9 pt-5 ">
-        <div>
-            <h1>EtiënStagram</h1>
-            <div class="d-flex">
-                <div class="pr-5"><strong>153</strong> posts</div>
-                <div class="pr-5"><strong>24k</strong> followers</div>
-                <div class="pr-5"><strong>212</strong> following</div>
-            </div>
-            <div class="pt-4 font-weight-bold">EtiënStagram.com</div>
-            <div>Lorem Ipsum is slechts een proeftekst uit het drukkerij- en zetterijwezen. Lorem Ipsum is de standaard proeftekst in deze bedrijfstak sinds de 16e eeuw, toen een onbekende drukker een zethaak met letters nam en ze door elkaar husselde om een font-catalogus te maken.</div>
-            <div><a href="https://etienruhl.nl">EtiënStagram.nl</a></div>
+        <div class="d-flex justify-content-between align-items-baseline">
+            <h1>{{ $user->username }}</h1>
+            <a href="#">Add new post</a>
         </div>
+        <div class="d-flex">
+            <div class="pr-5"><strong>153</strong> posts</div>
+            <div class="pr-5"><strong>24k</strong> followers</div>
+            <div class="pr-5"><strong>212</strong> following</div>
+        </div>
+        <div class="pt-4 font-weight-bold">{{ $user->profile->title }}</div>
+        <div>{{ $user->profile->description }}</div>
+        <div><a href="https://etienruhl.nl">{{ $user->profile->url }}</a></div>
     </div>
 </div>
 <div class="row pt-5">
