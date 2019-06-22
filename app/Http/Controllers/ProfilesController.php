@@ -10,8 +10,13 @@ class ProfilesController extends Controller
 {
     public function index(User $user){
         
-        return view('profiles.index', compact('user'));
-    
+        $follows = (auth()->user()) ? auth()->user()->following->contains($user->id) : false;
+        
+        $postCount = $user->posts->count(); 
+        $followersCount = $user->profile->followers->count();
+        $followingCount = $user->following->count();
+
+        return view('profiles.index', compact('user', 'follows', 'postCount', 'followersCount', 'followingCount'));
     }
 
     public function edit(User $user){
