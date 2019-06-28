@@ -4,7 +4,17 @@
 <div class="container">
 <div class="row">
     <div class="col-3">
-        <img src="/{{ $user->profile->image }}" class="rounded-circle w-50 d-block m-5">
+
+        <?php
+        $image = '';
+        if(empty($user->profile->image)){
+            $image = 'svg/freeRandomLogo.svg';
+        } else {
+            $image = $user->profile->image;
+        }
+
+        ?>
+        <img src="/{{ $image }}" class="rounded-circle w-50 d-block m-5">
     </div>
     <div class="col-9 pt-5 ">
         <div class="d-flex justify-content-between align-items-baseline">
@@ -16,7 +26,7 @@
             @can('update', $user->profile)
                 <a href="/p/create">Add new post</a>
             @endcan
-            
+
         </div>
 
             @can('update', $user->profile)
