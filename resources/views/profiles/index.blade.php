@@ -4,7 +4,7 @@
 <div class="container">
 <div class="row">
     <div class="col-3">
-        <img src="{{ $user->profile->profileImage() }}" class="rounded-circle w-50 d-block m-5">
+        <img src="/{{ $user->profile->image }}" class="rounded-circle w-50 d-block m-5">
     </div>
     <div class="col-9 pt-5 ">
         <div class="d-flex justify-content-between align-items-baseline">
@@ -30,7 +30,7 @@
         </div>
         <div class="pt-4 font-weight-bold">{{ $user->profile->title }}</div>
         <div>{{ $user->profile->description }}</div>
-        <div><a href="https://etienruhl.nl">{{ $user->profile->url }}</a></div>
+        <div><a href="#">{{ $user->profile->url }}</a></div>
     </div>
 </div>
 <div class="row pt-5">
@@ -38,7 +38,7 @@
     @foreach($user->posts as $post)
     <div class="col-4 pb-4">
         <a href="/p/{{ $post->id }}">
-            <img src="/storage/{{ $post->image }}" alt="" class="w-100 d-block mx-auto">
+            <img src="/{{ $post->image }}" alt="" class="w-100 d-block mx-auto">
         </a>
     </div>
     @endforeach

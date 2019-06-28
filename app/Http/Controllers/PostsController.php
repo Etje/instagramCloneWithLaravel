@@ -8,44 +8,57 @@ use Intervention\Image\Facades\Image;
 
 class PostsController extends Controller
 {
-    public function __construct() {
+
+    public function __construct()
+    {
         $this->middleware('auth');
     }
 
-    public function index() {
+    public function index()
+    {
         $users = auth()->user()->following()->pluck('profiles.user_id');
-
-        $posts = Post::whereIn('user_id', $users)->with('user')->latest()->paginate(3);
-
+        $posts = Post::whereIn('user_id', $users)->with('user')->latest()->paginate(5);
         return view('posts.index', compact('posts'));
-
     }
 
-    public function create(){
+    public function create()
+    {
         return view('posts.create');
     }
 
-    public function store(){
+    public function store(Request $request)
+    {
         $data = request()->validate([
             'caption' => 'required',
-            'image'   => ['required', 'image']
+            'image' => ['required', 'image'],
         ]);
-
+        
         $imagePath = request('image')->store('uploads', 'public');
+        
+        //$image = Image::make(request('image')->getRealPath()->save('public', 90, 'png'));
 
-        $image = Image::make(public_path("storage/{$imagePath}"))->fit(1200, 1200);
-        $image->save();
+        //$test = $request->request('file');
+
+        $originalImage= $request->file('image');
+        $thumbnailImage = Image::make($originalImage);
+
+        $source = storage_path().'/app/public/'.$imagePath;
+        $target = public_path('' . $imagePath);
+    
+        Image::make($source)->fit(1200, 1200)->save($target);
 
         auth()->user()->posts()->create([
             'caption' => $data['caption'],
-            'image'   => $imagePath,
+            'image' => $imagePath,
         ]);
 
         return redirect('/profile/' . auth()->user()->id);
     }
 
-    public function show(\App\Post $post){
+    public function show(\App\Post $post)
+    {
         return view('posts.show', compact('post'));
     }
 
 }
+?>
